@@ -1,0 +1,16 @@
+<h3>Post details</h3>
+
+<p>
+  <strong>Caption:</strong>
+  <%= @post.caption %>
+</p>
+
+<p>
+  <%= image_tag @post.photo.url(:large) %>
+</p>
+
+<p>
+  <%= link_to 'Back To Home', posts_path %><br>
+  <%= link_to 'Edit', edit_post_path(@post) %><br>
+  <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure you want to delete this post ?' } %><br>
+</p>
