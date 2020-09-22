@@ -3,8 +3,6 @@
   <head>
     <title>InstaRoR</title>
     <%= csrf_meta_tags %>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -12,17 +10,34 @@
   <body>
     <%= yield %>
     <script type="text/javascript">
-      if( $('.pagination').length && $('#posts').length )
-      {
-        $(window).scroll(function(){
-          more_posts_url = $('.pagination .next_page').attr('href')
-            if(more_posts_url && ($(window).scrollTop() == $(document).height() - $(window).height() ) )
-            {
-              $('.pagination').html('<p> Loading older posts ........ </p>')
-              $.getScript(more_posts_url)
-            }
-        });
+
+      function infiniteScrollHelper(){
+        pagination_element = document.querySelectorAll('.pagination .next_page')
+        if(pagination_element.length > 0)
+          more_posts_url = pagination_element[0].getAttribute('href')
+        else
+          more_posts_url = ""
+        if(more_posts_url && (window.pageYOffset >= document.body.clientHeight - window.innerHeight) )
+        {
+          document.querySelector('.pagination').innerHTML = '<p> Loading older posts ........ </p>'
+          var head= document.getElementsByTagName('head')[0];
+          var script= document.createElement('script');
+          script.type= 'text/javascript';
+          ques_index=more_posts_url.indexOf('?')
+          if(more_posts_url.indexOf(".js")==-1)
+            script.src= more_posts_url.substring(0,ques_index)+".js?"+more_posts_url.substring(ques_index+1)
+          else
+            script.src= more_posts_url
+          script.async = true;
+          head.appendChild(script);
+        }
       }
+
+      if( document.querySelectorAll('.pagination').length  && document.querySelectorAll('#posts').length )
+      {
+        window.addEventListener('scroll',infiniteScrollHelper);
+      }
+
     </script>
   </body>
 </html>
