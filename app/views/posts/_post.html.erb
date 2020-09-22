@@ -1,0 +1,6 @@
+<div class="">
+  <%= link_to post_path(post) do %>
+    <h4><%= post.caption %></h4>
+    <%= image_tag post.photo.url(:medium) %>
+  <% end %>
+</div>

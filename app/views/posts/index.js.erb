@@ -1,0 +1,7 @@
+$('#posts').append('<%= j render @posts %>');
+<% if @posts.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @posts %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').html('<br><p>Good job reaching here. You have seen all the posts. Nothing more to show :D</p><br>');
+<% end %>

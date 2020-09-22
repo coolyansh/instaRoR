@@ -1,13 +1,7 @@
-<h3>Post details</h3>
+<h2>Post details</h2>
 
-<p>
-  <strong>Caption:</strong>
-  <%= @post.caption %>
-</p>
-
-<p>
-  <%= image_tag @post.photo.url(:large) %>
-</p>
+<h3><%= @post.caption %></h3>
+<%= image_tag @post.photo.url(:large) %>
 
 <p>
   <%= link_to 'Back To Home', posts_path %><br>

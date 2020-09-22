@@ -1,8 +1,8 @@
 <h1>InstaRoR</h1>
 <p><%= link_to 'Create new post', new_post_path %></p>
-<% @posts.each do |post| %>
-    <h5><%= post.caption %></h5>
-    <%= image_tag post.photo.url(:medium) %>
-    <p><%= link_to 'View Post', post_path(post) %></p>
-<% end %>
+<br>
+<div class="" id="posts">
+  <%= render @posts %>
+</div>
+
 <%= will_paginate @posts %>
